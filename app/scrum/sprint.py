@@ -173,6 +173,7 @@ def AModifSprint():
 
     return json.dumps(res)
 
+
 @sprint.route('/sprint/ASprintHistoria', methods=['POST'])
 def ASprintHistoria():
     #POST/PUT parameters
@@ -230,6 +231,7 @@ def ASprintTarea():
             session['actor'] = res['actor']
     return json.dumps(res)
 
+
 @sprint.route('/sprint/VCrearSprint')
 def VCrearSprint():
     #GET parameter
@@ -271,7 +273,7 @@ def VSprint():
 
     # Buscamos el actor actual
     oSprint = sprints()
-    sprint  = oSprint.searchIdSprint(idSprint,idPila)[0]
+    sprint  = oSprint.searchIdSprint(idSprint, idPila)[0]
     listaHistorias = oSprint.getAssignedSprintHistory(idSprint, idPila) #Obtenes las historias asignadas al sprint
 
     res['fSprint'] = {'idSprint':idSprint, 'numero':sprint.S_numero, 'descripcion':sprint.S_sprintDescription}
@@ -355,7 +357,6 @@ def VSprintTarea():
     return json.dumps(res)
 
 
-
 @sprint.route('/sprint/VSprints')
 def VSprints():
     #GET parameter
@@ -384,6 +385,61 @@ def VSprints():
     return json.dumps(res)
 
 
+@sprint.route('/sprint/AResumenHistoria', methods=['POST'])
+def AResumenHistoria():
+    #POST/PUT parameters
+    params = request.get_json()
+    results = [{'label':'/VResumenHistoria', 'msg':['Resumen agregado exitosamente!']}, {'label':'/VResumenHistoria', 'msg':['Error agregando resumen de historia']}, ]
+    res = results[0]
+    #Action code goes here, res should be a list with a label and a message
+
+    idSprint = int(session['idSprint'])
+    idUserHistory = int(params['historia'])
+    resume = str(params['resumen'])
+
+    res['label'] = res['label'] + '/' + str(idSprint)
+    oUserHistory = userHistory()
+    result = oUserHistory.assignHistoryResume(idUserHistory, resume)
+
+    if not result:
+        res = result[1]
+
+    #Action code ends here
+    if "actor" in res:
+        if res['actor'] is None:
+            session.pop("actor", None)
+        else:
+            session['actor'] = res['actor']
+    return json.dumps(res)
+
+
+
+@sprint.route('/sprint/VResumenHistoria')
+def VResumenHistoria():
+    idSprint = request.args['idSprint']
+    res = {}
+    if "actor" in session:
+        res['actor']=session['actor']
+    #Action code goes here, res should be a JSON structure
+
+    if 'usuario' not in session:
+        res['logout'] = '/'
+        return json.dumps(res)
+    res['usuario'] = session['usuario']
+
+    idPila = int(session['idPila'])
+
+    oSprint = sprints()
+    historiasSprint = oSprint.getAssignedSprintHistory(idSprint, idPila)
+    res['fSprintHistoria_opcionesHistoria'] = [
+        {'key':historia.UH_idUserHistory,'value':historia.UH_codeUserHistory} for historia in historiasSprint
+    ]
+
+    res['idSprint'] = idSprint
+    res['fSprintHistoria'] = {'idPila':idPila, 'idSprint':idSprint}
+
+    #Action code ends here
+    return json.dumps(res)
 
 
 
@@ -391,4 +447,3 @@ def VSprints():
 
 
 #Use case code ends here
-

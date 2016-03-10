@@ -16,6 +16,9 @@
   +Asignar Historia</a></li>
 <li><a ng-click="VSprintTarea3(idSprint)">
   +Asignar Tarea</a></li>
+<li><a ng-click="VResumenHistoria4()"
+       ng-show="actor=='desarrollador' || false">
+  +Asignar Resumen</a></li>
 
             </ul>
             <ul class="nav navbar-nav navbar-right">
@@ -38,19 +41,19 @@
         </button>
     </form>
     <hr /><h3>Historias</h3>
-        <table ng-table="tableParams5" template-pagination="pager.html" class="table">
+        <table ng-table="tableParams6" template-pagination="pager.html" class="table">
             <tr ng-repeat="row in $data">
                 <td data-title="'Prioridad'" ng-bind="row['prioridad']"></td>
                 <td data-title="'Enunciado'" ng-bind="row['enunciado']"></td>
-                <td ng-show="row['idHistoria']"><a ng-click="AElimSprintHistoria5(row['idHistoria'])">-historia</a></td>
+                <td ng-show="row['idHistoria']"><a ng-click="AElimSprintHistoria6(row['idHistoria'])">-historia</a></td>
             </tr>
         </table>
 
 <hr /><h3>Tareas</h3>
-        <table ng-table="tableParams7" template-pagination="pager.html" class="table">
+        <table ng-table="tableParams8" template-pagination="pager.html" class="table">
             <tr ng-repeat="row in $data">
                 <td data-title="'Descripción'" ng-bind="row['descripcion']"></td>
-                <td ng-show="row['idTarea']"><a ng-click="AElimSprintTarea7(row['idTarea'])">-tarea</a></td>
+                <td ng-show="row['idTarea']"><a ng-click="AElimSprintTarea8(row['idTarea'])">-tarea</a></td>
             </tr>
         </table>
 

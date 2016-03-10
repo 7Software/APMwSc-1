@@ -198,6 +198,7 @@ class clsUserHistory(db.Model):
     UH_refTareaUserHist  = db.relationship('clsTask', backref='userHistory', lazy='dynamic', cascade="all, delete, delete-orphan")
     UH_refObjUserHist    = db.relationship('clsObjectivesUserHistory', backref='userHistory', lazy='dynamic', cascade="all, delete, delete-orphan")
     UH_idSprint          = db.Column(db.Integer, db.ForeignKey('sprint.S_idSprint'))
+    UH_resume            = db.Column(db.String(200), nullable=True)
 
     def __init__(self, codeUserHistory, idSuperHistory, accionType, idAccion, idBacklog, scale):
         self.UH_codeUserHistory = codeUserHistory
@@ -207,6 +208,7 @@ class clsUserHistory(db.Model):
         self.UH_idBacklog       = idBacklog
         self.UH_scale           = scale
         self.UH_idSprint        = None
+        self.UH_resume          = None
 
     def __repr__(self):
         '''Representacion en string de la Historia de Usuario'''

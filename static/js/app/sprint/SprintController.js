@@ -2,6 +2,9 @@ scrumModule.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/VCrearSprint/:idPila', {
                 controller: 'VCrearSprintController',
                 templateUrl: 'app/sprint/VCrearSprint.html'
+            }).when('/VResumenHistoria', {
+                controller: 'VResumenHistoriaController',
+                templateUrl: 'app/sprint/VResumenHistoria.html'
             }).when('/VSprint/:idSprint', {
                 controller: 'VSprintController',
                 templateUrl: 'app/sprint/VSprint.html'
@@ -44,6 +47,43 @@ scrumModule.controller('VCrearSprintController',
         if (isValid) {
           
           sprintService.ACrearSprint($scope.fSprint).then(function (object) {
+              var msg = object.data["msg"];
+              if (msg) flash(msg);
+              var label = object.data["label"];
+              $location.path(label);
+              $route.reload();
+          });
+        }
+      };
+
+    }]);
+scrumModule.controller('VResumenHistoriaController', 
+   ['$scope', '$location', '$route', '$timeout', 'flash', 'prodService', 'sprintService',
+    function ($scope, $location, $route, $timeout, flash, prodService, sprintService) {
+      $scope.msg = '';
+      $scope.fResumenHistoria = {};
+
+      sprintService.VResumenHistoria().then(function (object) {
+        $scope.res = object.data;
+        for (var key in object.data) {
+            $scope[key] = object.data[key];
+        }
+        if ($scope.logout) {
+            $location.path('/');
+        }
+
+
+      });
+      $scope.VSprint1 = function(idSprint) {
+        $location.path('/VSprint/'+idSprint);
+      };
+
+      $scope.fResumenHistoriaSubmitted = false;
+      $scope.AResumenHistoria0 = function(isValid) {
+        $scope.fResumenHistoriaSubmitted = true;
+        if (isValid) {
+          
+          sprintService.AResumenHistoria($scope.fResumenHistoria).then(function (object) {
               var msg = object.data["msg"];
               if (msg) flash(msg);
               var label = object.data["label"];
@@ -104,6 +144,9 @@ scrumModule.controller('VSprintController',
       };
       $scope.VSprintTarea3 = function(idSprint) {
         $location.path('/VSprintTarea/'+idSprint);
+      };
+      $scope.VResumenHistoria4 = function() {
+        $location.path('/VResumenHistoria');
       };
 
       $scope.fSprintSubmitted = false;

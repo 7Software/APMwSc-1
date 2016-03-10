@@ -358,4 +358,24 @@ class userHistory(object):
 
         return historyDict 
     
+    def assignHistoryResume(self,idUserHistory, historyResume):
+    '''Permite agregar un resumen a una historia de usuario'''
+    
+        checkTypeIdHistory = type(idUserHistory) == int
+        checkTypeHistoryResume = type(historyResume) == str
+
+        if checkTypeIdHistory and checkTypeHistoryResume:
+            checkIdHistory = idUserHistory >= CONST_MIN_ID
+            
+            if checkIdHistory:
+
+                oHistory = self.searchIdUserHistory(idUserHistory)
+                oHistory.UH_resume = historyResume
+            
+                db.session.commit()
+
+                return True
+                
+        return False 
+
 # Fin Clase userHistory
