@@ -65,6 +65,19 @@ scrumModule.service('sprintService', ['$q', '$http', function($q, $http) {
     //    return deferred.promise;
     };
 
+    this.AResumenHistoria = function(fResumenHistoria) {
+        return  $http({
+          url: "sprint/AResumenHistoria",
+          data: fResumenHistoria,
+          method: 'POST',
+        });
+    //    var labels = ["/VSprint", "/VResumenHistoria", ];
+    //    var res = labels[0];
+    //    var deferred = $q.defer();
+    //    deferred.resolve(res);
+    //    return deferred.promise;
+    };
+
     this.ASprintHistoria = function(fSprintHistoria) {
         return  $http({
           url: "sprint/ASprintHistoria",
@@ -95,6 +108,19 @@ scrumModule.service('sprintService', ['$q', '$http', function($q, $http) {
         if(typeof args == 'undefined') args={};
         return $http({
           url: 'sprint/VCrearSprint',
+          method: 'GET',
+          params: args
+        });
+    //    var res = {};
+    //    var deferred = $q.defer();
+    //    deferred.resolve(res);
+    //    return deferred.promise;
+    };
+
+    this.VResumenHistoria = function(args) {
+        if(typeof args == 'undefined') args={};
+        return $http({
+          url: 'sprint/VResumenHistoria',
           method: 'GET',
           params: args
         });

@@ -173,6 +173,27 @@ def AModifSprint():
 
     return json.dumps(res)
 
+<<<<<<< Updated upstream
+=======
+@sprint.route('/sprint/AResumenHistoria', methods=['POST'])
+def AResumenHistoria():
+    #POST/PUT parameters
+    params = request.get_json()
+    results = [{'label':'/VSprint', 'msg':['Resumen agregado exitosamente!']}, {'label':'/VResumenHistoria', 'msg':['Error agregando resumen de historia']}, ]
+    res = results[0]
+    #Action code goes here, res should be a list with a label and a message
+
+
+    #Action code ends here
+    if "actor" in res:
+        if res['actor'] is None:
+            session.pop("actor", None)
+        else:
+            session['actor'] = res['actor']
+    return json.dumps(res)
+
+
+>>>>>>> Stashed changes
 
 @sprint.route('/sprint/ASprintHistoria', methods=['POST'])
 def ASprintHistoria():
@@ -250,6 +271,20 @@ def VCrearSprint():
     res['usuario'] = session['usuario']
     res['idPila']  = idPila
 
+    return json.dumps(res)
+
+
+@sprint.route('/sprint/VResumenHistoria')
+def VResumenHistoria():
+    #GET parameter
+    idSprint = request.args['idSprint']
+    res = {}
+    if "actor" in session:
+        res['actor']=session['actor']
+    #Action code goes here, res should be a JSON structure
+
+
+    #Action code ends here
     return json.dumps(res)
 
 

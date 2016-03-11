@@ -2,7 +2,11 @@ scrumModule.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/VCrearSprint/:idPila', {
                 controller: 'VCrearSprintController',
                 templateUrl: 'app/sprint/VCrearSprint.html'
+<<<<<<< Updated upstream
             }).when('/VResumenHistoria', {
+=======
+            }).when('/VResumenHistoria/:idSprint', {
+>>>>>>> Stashed changes
                 controller: 'VResumenHistoriaController',
                 templateUrl: 'app/sprint/VResumenHistoria.html'
             }).when('/VSprint/:idSprint', {
@@ -58,12 +62,21 @@ scrumModule.controller('VCrearSprintController',
 
     }]);
 scrumModule.controller('VResumenHistoriaController', 
+<<<<<<< Updated upstream
    ['$scope', '$location', '$route', '$timeout', 'flash', 'prodService', 'sprintService',
     function ($scope, $location, $route, $timeout, flash, prodService, sprintService) {
       $scope.msg = '';
       $scope.fResumenHistoria = {};
 
       sprintService.VResumenHistoria().then(function (object) {
+=======
+   ['$scope', '$location', '$route', '$timeout', 'flash', '$routeParams', 'prodService', 'sprintService',
+    function ($scope, $location, $route, $timeout, flash, $routeParams, prodService, sprintService) {
+      $scope.msg = '';
+      $scope.fResumenHistoria = {};
+
+      sprintService.VResumenHistoria({"idSprint":$routeParams.idSprint}).then(function (object) {
+>>>>>>> Stashed changes
         $scope.res = object.data;
         for (var key in object.data) {
             $scope[key] = object.data[key];
@@ -110,27 +123,27 @@ scrumModule.controller('VSprintController',
         }
 
 
-              var AElimSprintHistoria5Data = $scope.res.data5;
-              if(typeof AElimSprintHistoria5Data === 'undefined') AElimSprintHistoria5Data=[];
-              $scope.tableParams5 = new ngTableParams({
+              var AElimSprintHistoria6Data = $scope.res.data6;
+              if(typeof AElimSprintHistoria6Data === 'undefined') AElimSprintHistoria6Data=[];
+              $scope.tableParams6 = new ngTableParams({
                   page: 1,            // show first page
                   count: 10           // count per page
               }, {
-                  total: AElimSprintHistoria5Data.length, // length of data
+                  total: AElimSprintHistoria6Data.length, // length of data
                   getData: function($defer, params) {
-                      $defer.resolve(AElimSprintHistoria5Data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                      $defer.resolve(AElimSprintHistoria6Data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                   }
               });            
 
-              var AElimSprintTarea7Data = $scope.res.data7;
-              if(typeof AElimSprintTarea7Data === 'undefined') AElimSprintTarea7Data=[];
-              $scope.tableParams7 = new ngTableParams({
+              var AElimSprintTarea8Data = $scope.res.data8;
+              if(typeof AElimSprintTarea8Data === 'undefined') AElimSprintTarea8Data=[];
+              $scope.tableParams8 = new ngTableParams({
                   page: 1,            // show first page
                   count: 10           // count per page
               }, {
-                  total: AElimSprintTarea7Data.length, // length of data
+                  total: AElimSprintTarea8Data.length, // length of data
                   getData: function($defer, params) {
-                      $defer.resolve(AElimSprintTarea7Data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
+                      $defer.resolve(AElimSprintTarea8Data.slice((params.page() - 1) * params.count(), params.page() * params.count()));
                   }
               });            
 
@@ -145,8 +158,13 @@ scrumModule.controller('VSprintController',
       $scope.VSprintTarea3 = function(idSprint) {
         $location.path('/VSprintTarea/'+idSprint);
       };
+<<<<<<< Updated upstream
       $scope.VResumenHistoria4 = function() {
         $location.path('/VResumenHistoria');
+=======
+      $scope.VResumenHistoria4 = function(idSprint) {
+        $location.path('/VResumenHistoria/'+idSprint);
+>>>>>>> Stashed changes
       };
 
       $scope.fSprintSubmitted = false;
@@ -164,7 +182,7 @@ scrumModule.controller('VSprintController',
         }
       };
 
-      $scope.AElimSprintHistoria5 = function(id) {
+      $scope.AElimSprintHistoria6 = function(id) {
           var tableFields = [["idHistoria","id"],["prioridad","Prioridad"],["enunciado","Enunciado"]];
           var arg = {};
           arg[tableFields[0][1]] = ((typeof id === 'object')?JSON.stringify(id):id);
@@ -176,7 +194,7 @@ scrumModule.controller('VSprintController',
               $route.reload();
           });
       };
-      $scope.AElimSprintTarea7 = function(id) {
+      $scope.AElimSprintTarea8 = function(id) {
           var tableFields = [["idTarea","id"],["descripcion","Descripción"]];
           var arg = {};
           arg[tableFields[0][1]] = ((typeof id === 'object')?JSON.stringify(id):id);
