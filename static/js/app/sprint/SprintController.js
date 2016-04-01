@@ -118,7 +118,124 @@ scrumModule.controller('VDesempenoController',
         $location.path('/VSprint/'+idSprint);
       };
 	  
+	  $scope.bdchart = {
+		  "type": "ComboChart",
+		  "data": {
+			"cols": [
+				{ "id":"days",
+				"label":"Dias del sprint",
+				"type":"string",
+				"p":{}
+				},
+			  {
+				"id": "actual_hours",
+				"label": "Horas reales",
+				"type": "number",
+				"p": {}
+			  },
+			  {
+				"id": "ideal_hours",
+				"label": "Horas estimadas",
+				"type": "number",
+				"p": {}
+			  },
+      
+    ],
+    "rows": [
+      {
+        "c": [
+          {
+            "v": "Dia 1"
+          },
+          {
+            "v": 165,
+          },
+          {
+            "v": 165,
+          }
+        ]
+      },
+	  {
+        "c": [
+          {
+            "v": "Dia 2"
+          },
+          {
+            "v": 135,
+          },
+          {
+            "v": 132,
+          }
+        ]
+      },
 	  
+	  {
+        "c": [
+          {
+            "v": "Dia 3"
+          },
+          {
+            "v": 157,
+          },
+          {
+            "v": 99,
+          }
+        ]
+      },
+	  {
+        "c": [
+          {
+            "v": "Dia 4"
+          },
+          {
+            "v": 139,
+          },
+          {
+            "v": 66,
+          }
+        ]
+      },
+	  {
+        "c": [
+          {
+            "v": "Dia 5"
+          },
+          {
+            "v": 136,
+          },
+          {
+            "v": 33,
+          }
+        ]
+      },
+	  {
+        "c": [
+          {
+            "v": "Dia 5"
+          },
+          {
+            "v": 0,
+          },
+          {
+            "v": 0,
+          }
+        ]
+      },
+    ]  
+  },
+  "options": {
+    "title": "Burn down chart del Sprint",
+    "vAxis": {
+      "title": "Horas/hombre al día empleadas"
+      },
+    "hAxis": {
+      "title": "Dias"
+    },
+	"seriesType":"bars",
+	"series":{1:{type: 'line'}, 0: {color: '#000000'}},
+  },
+	"formatters": {}
+};
 
     }]);
 scrumModule.controller('VResumenHistoriaController', 
