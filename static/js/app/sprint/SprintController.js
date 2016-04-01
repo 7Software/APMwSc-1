@@ -1,10 +1,13 @@
-scrumModule.config(['$routeProvider', function ($routeProvider) {
+﻿scrumModule.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/VCrearSprint/:idPila', {
                 controller: 'VCrearSprintController',
                 templateUrl: 'app/sprint/VCrearSprint.html'
             }).when('/VCriterioHistoria/:idSprint', {
                 controller: 'VCriterioHistoriaController',
                 templateUrl: 'app/sprint/VCriterioHistoria.html'
+            }).when('/VDesempeno/:idSprint', {
+                controller: 'VDesempenoController',
+                templateUrl: 'app/sprint/VDesempeno.html'
             }).when('/VResumenHistoria/:idSprint', {
                 controller: 'VResumenHistoriaController',
                 templateUrl: 'app/sprint/VResumenHistoria.html'
@@ -98,7 +101,26 @@ scrumModule.controller('VCriterioHistoriaController',
       };
 
     }]);
+scrumModule.controller('VDesempenoController', 
+   ['$scope', '$location', '$route', '$timeout', 'flash', '$routeParams', 'prodService', 'sprintService',
+    function ($scope, $location, $route, $timeout, flash, $routeParams, prodService, sprintService) {
+      $scope.msg = '';
+      sprintService.VDesempeno({"idSprint":$routeParams.idSprint}).then(function (object) {
+        $scope.res = object.data;
+        for (var key in object.data) {
+            $scope[key] = object.data[key];
+        }
+        if ($scope.logout) {
+            $location.path('/');
+        }
+      });
+      $scope.VSprint0 = function(idSprint) {
+        $location.path('/VSprint/'+idSprint);
+      };
+	  
+	  
 
+    }]);
 scrumModule.controller('VResumenHistoriaController', 
    ['$scope', '$location', '$route', '$timeout', 'flash', '$routeParams', 'prodService', 'sprintService',
     function ($scope, $location, $route, $timeout, flash, $routeParams, prodService, sprintService) {
@@ -204,6 +226,9 @@ scrumModule.controller('VSprintController',
       };
       $scope.VCriterioHistoria5 = function(idSprint) {
         $location.path('/VCriterioHistoria/'+idSprint);
+      };
+       $scope.VDesempeno12 = function(idSprint) {
+        $location.path('/VDesempeno/'+idSprint);
       };
 
       $scope.fSprintSubmitted = false;
